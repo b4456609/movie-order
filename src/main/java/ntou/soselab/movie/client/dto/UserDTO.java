@@ -1,4 +1,4 @@
-package ntou.soselab.movie.client;
+package ntou.soselab.movie.client.dto;
 
 import lombok.Data;
 

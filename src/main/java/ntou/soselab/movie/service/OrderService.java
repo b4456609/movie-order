@@ -1,9 +1,10 @@
 package ntou.soselab.movie.service;
 
-import ntou.soselab.movie.client.BookResultDTO;
 import ntou.soselab.movie.client.TheaterClient;
 import ntou.soselab.movie.client.UserClient;
-import ntou.soselab.movie.client.UserDTO;
+import ntou.soselab.movie.client.dto.BookResultDTO;
+import ntou.soselab.movie.client.dto.BookShowDTO;
+import ntou.soselab.movie.client.dto.UserDTO;
 import ntou.soselab.movie.controller.dto.BookDTO;
 import ntou.soselab.movie.model.Order;
 import ntou.soselab.movie.repository.OrderRepository;
@@ -27,9 +28,15 @@ public class OrderService {
 
     public void bookTickets(BookDTO bookDTO) {
         UserDTO userDTO = userClient.checkUser(bookDTO.getUserId());
-        BookResultDTO bookResultDTO = theaterClient.bookShow(bookDTO.getShowId());
+        BookShowDTO bookShowDTO = BookShowDTO.builder()
+                .showId(bookDTO.getShowId())
+                .tickets(bookDTO.getTicket())
+                .build();
+        BookResultDTO bookResultDTO = theaterClient.bookShow(bookShowDTO);
 
-        Order build = Order.builder()
+        if (!bookResultDTO.isSuccess()) throw new BookNotSuccessfulException(bookResultDTO.getReason());
+
+        Order order = Order.builder()
                 .id(UUID.randomUUID().toString())
                 .isPickUp(false)
                 .showId(bookDTO.getShowId())
@@ -37,7 +44,7 @@ public class OrderService {
                 .timestamp(System.currentTimeMillis())
                 .build();
 
-        orderRepository.save(build);
+        orderRepository.save(order);
     }
 
     public Order pickUpTickets(String orderId) {
