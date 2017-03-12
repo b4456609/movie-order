@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(name = "user")
 public interface UserClient {
-    @RequestMapping(method = RequestMethod.GET, value = "/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    UserDTO checkUser(@PathVariable("userId") String userId);
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    UserDTO checkUser(@PathVariable("id") String userId);
 }
