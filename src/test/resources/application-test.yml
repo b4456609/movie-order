@@ -1,0 +1,22 @@
+endpoints:
+  mappings:
+    sensitive: false
+eureka:
+  client:
+    enabled: false
+
+ribbon:
+  eureka:
+   enabled: false
+
+feign:
+  hystrix:
+    enabled: false
+
+theater:
+  ribbon:
+    listOfServers: localhost:8085
+
+user:
+  ribbon:
+    listOfServers: localhost:8085
