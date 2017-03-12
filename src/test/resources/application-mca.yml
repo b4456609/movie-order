@@ -1,3 +1,7 @@
 endpoints:
   mappings:
     sensitive: false
+
+eureka:
+  client:
+    enabled: false
