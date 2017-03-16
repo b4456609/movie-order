@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'au.com.dius.pact'
 
 jar {
 	baseName = 'order'
@@ -43,4 +44,13 @@ dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR5"
 	}
+}
+
+
+pact {
+    publish {
+        version = '0.0.1'
+        pactDirectory = 'target/pacts'
+        pactBrokerUrl = "$System.env.PACT_URL"
+    }
 }
