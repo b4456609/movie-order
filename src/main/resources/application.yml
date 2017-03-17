@@ -1,6 +1,10 @@
 spring:
   application:
     name: order
+  data:
+    mongodb:
+      database: order
+      host: ${DB_HOST:localhost}
 
 server:
   port: 8083

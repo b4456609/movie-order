@@ -9,6 +9,9 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
+plugins {
+  id "au.com.dius.pact" version "3.2.4"
+}
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
@@ -53,4 +56,12 @@ pact {
         pactDirectory = 'target/pacts'
         pactBrokerUrl = "$System.env.PACT_URL"
     }
+}
+
+task unitTest( type: Test ) {
+	exclude '**/client/**'
+}
+
+task clientTest( type: Test ) {
+	include '**/client/**'
 }
