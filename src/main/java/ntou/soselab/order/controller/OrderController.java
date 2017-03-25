@@ -26,12 +26,12 @@ public class OrderController {
         orderService.bookTickets(bookDTO);
     }
 
-    @GetMapping("/orders/user/{userId}")
+    @GetMapping("/user/{userId}")
     public List<Order> checkOrders(@PathVariable("userId") String userId) {
         return orderRepository.findAllByUserId(userId);
     }
 
-    @PostMapping("tickets/{orderId}")
+    @PostMapping("/tickets/{orderId}")
     public Order pickUpTickets(@PathVariable("orderId") String orderId) {
         return orderService.pickUpTickets(orderId);
     }
