@@ -26,7 +26,7 @@ public class OrderService {
         this.theaterClient = theaterClient;
     }
 
-    public void bookTickets(BookDTO bookDTO) {
+    public Order bookTickets(BookDTO bookDTO) {
         UserDTO userDTO = userClient.checkUser(bookDTO.getUserId());
         BookShowDTO bookShowDTO = BookShowDTO.builder()
                 .showId(bookDTO.getShowId())
@@ -45,6 +45,7 @@ public class OrderService {
                 .build();
 
         orderRepository.save(order);
+        return order;
     }
 
     public Order pickUpTickets(String orderId) {

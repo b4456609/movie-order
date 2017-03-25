@@ -22,8 +22,8 @@ public class OrderController {
     }
 
     @PostMapping("/book")
-    public void bookTickets(@RequestBody BookDTO bookDTO) {
-        orderService.bookTickets(bookDTO);
+    public Order bookTickets(@RequestBody BookDTO bookDTO) {
+        return orderService.bookTickets(bookDTO);
     }
 
     @GetMapping("/user/{userId}")
