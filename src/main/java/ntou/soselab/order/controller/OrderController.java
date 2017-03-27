@@ -1,5 +1,6 @@
 package ntou.soselab.order.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import ntou.soselab.order.controller.dto.BookDTO;
 import ntou.soselab.order.model.Order;
 import ntou.soselab.order.repository.OrderRepository;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class OrderController {
 
@@ -23,6 +25,7 @@ public class OrderController {
 
     @PostMapping("/book")
     public Order bookTickets(@RequestBody BookDTO bookDTO) {
+        log.info("{}", bookDTO);
         return orderService.bookTickets(bookDTO);
     }
 

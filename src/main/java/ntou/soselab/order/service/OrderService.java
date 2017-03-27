@@ -1,5 +1,6 @@
 package ntou.soselab.order.service;
 
+import lombok.extern.slf4j.Slf4j;
 import ntou.soselab.order.client.TheaterClient;
 import ntou.soselab.order.client.UserClient;
 import ntou.soselab.order.client.dto.BookResultDTO;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
@@ -32,7 +34,9 @@ public class OrderService {
                 .showId(bookDTO.getShowId())
                 .tickets(bookDTO.getTicket())
                 .build();
+        log.info("book show dto: {}", bookShowDTO);
         BookResultDTO bookResultDTO = theaterClient.bookShow(bookShowDTO);
+        log.info("book result: {}", bookResultDTO);
 
         if (!bookResultDTO.isSuccess()) throw new BookNotSuccessfulException(bookResultDTO.getReason());
 
@@ -43,6 +47,7 @@ public class OrderService {
                 .ticket(bookDTO.getTicket())
                 .timestamp(System.currentTimeMillis())
                 .build();
+        log.info("order result: {}", order);
 
         orderRepository.save(order);
         return order;
