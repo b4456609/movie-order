@@ -59,7 +59,7 @@ public class OrderService {
 
         if (pickUp) throw new AlreadyPickUpException();
 
-        order.setPickUp(false);
+        order.setPickUp(true);
         orderRepository.save(order);
 
         return order;
